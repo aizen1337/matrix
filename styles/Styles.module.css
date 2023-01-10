@@ -22,10 +22,12 @@
     color: magenta;
     padding: 1em;
     border-radius: 20px;
-    width: 6rem;
+    width: 7rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    transform-origin: center center;
+    cursor: pointer;
 }
 .navbar .list .listElement:hover {
     background-color: magenta;
@@ -35,6 +37,17 @@
     .navbar {
         position: fixed;
         bottom: 0;
+    }
+    .navbar .list {
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    .navbar .list .listElement {
+        scroll-snap-align: start;
+        transform-origin: center center;
+        width: 15rem;
     }
     .navbar .navtitle {
         display: none;

@@ -14,18 +14,31 @@ export const AuthContext = createContext<AuthContext>({
 })
 export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     const [currentUser,setCurrentUser] = useState<netlifyIdentity.User | null>(null)
+    const [isAuth,setIsAuth] = useState<boolean>(false)
     useEffect(() => {
+        netlifyIdentity.init({locale: 'pl'})
         netlifyIdentity.on("login", (user) => {
             setCurrentUser(user)
+            setIsAuth(true)
             netlifyIdentity.close()
         })
-        netlifyIdentity.init({locale: 'pl'})
+        netlifyIdentity.on("logout", () => {
+            setIsAuth(false)
+            setCurrentUser(null)
+        })
+        return () => {
+            netlifyIdentity.off('login')
+            netlifyIdentity.off('logout')
+        }
     }, [])
     const login = () => {
         netlifyIdentity.open()
     }
+    const logout = () => {
+        netlifyIdentity.logout()
+    }
     const contextValue = {
-        currentUser, login
+        currentUser, login, logout, isAuth
     }
     return (
         <AuthContext.Provider value={contextValue}>

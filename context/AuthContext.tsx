@@ -2,7 +2,7 @@ import { createContext, useState, useEffect} from "react";
 import netlifyIdentity from 'netlify-identity-widget'
 interface AuthContext {
     isAuth: boolean,
-    currentUser: null | {},
+    currentUser: null | netlifyIdentity.User,
     login: () => void
     logout: () => void
 }
@@ -17,13 +17,15 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     const [isAuth,setIsAuth] = useState<boolean>(false)
     useEffect(() => {
         netlifyIdentity.init({locale: 'pl'})
+        netlifyIdentity.on("init", (user) => {
+            setIsAuth(true)
+            setCurrentUser(user)
+        })
         netlifyIdentity.on("login", (user) => {
             setCurrentUser(user)
-            setIsAuth(true)
             netlifyIdentity.close()
         })
         netlifyIdentity.on("logout", () => {
-            setIsAuth(false)
             setCurrentUser(null)
         })
         return () => {

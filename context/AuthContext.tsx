@@ -1,5 +1,6 @@
+'use client'
+import { Session } from "next-auth";
 import { createContext, useState, useEffect} from "react";
-import netlifyIdentity from 'netlify-identity-widget'
 interface AuthContext {
     isAuth: boolean,
     currentUser: null | netlifyIdentity.User,
@@ -15,8 +16,8 @@ export const AuthContext = createContext<AuthContext>({
 export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     const [currentUser,setCurrentUser] = useState<netlifyIdentity.User | null>(null)
     const [isAuth,setIsAuth] = useState<boolean>(false)
+    
     useEffect(() => {
-        netlifyIdentity.init({locale: 'pl'})
         netlifyIdentity.on("init", (user) => {
             setIsAuth(true)
             setCurrentUser(user)
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         netlifyIdentity.on("logout", () => {
             setCurrentUser(null)
         })
+        netlifyIdentity.init()
         return () => {
             netlifyIdentity.off('login')
             netlifyIdentity.off('logout')

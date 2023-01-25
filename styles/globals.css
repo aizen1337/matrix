@@ -6,7 +6,9 @@
 }
 html {
   font-family: 'Clash Display', sans-serif;
-  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+body {
+  background-color: #121212;
   color: white;
   max-height: 100vh;
   max-width: 100vw;

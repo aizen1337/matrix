@@ -16,7 +16,7 @@ In addition to my technical skills, I am also a highly organized and efficient w
 
 If you are looking for a highly skilled, self-taught developer with a proven track record of success, then I would be an excellent candidate for your project. Whether you need a new website, an enterprise application, or any other type of software development project, I am confident that I have the skills and experience necessary to deliver outstanding results.
           </p>
-          <h4>Click here to see my <Link href="/experience"><br></br>experience</Link></h4>
+          <h4>Click here to see my <Link href="/posts"><br></br>blog</Link></h4>
         </main>
     </>
   )

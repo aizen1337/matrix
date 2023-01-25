@@ -4,13 +4,15 @@
     width: 100%;
     display: flex;
     align-items: center;
-
-    height: 10vh;
+    top: 0;
+    height: 15vh;
     background-color: black;
     padding-inline: 10px;
+    z-index: 10;
 }
 .navbar .navtitle {
     color: azure;
+    margin: 10px;
 }
 .navbar .list {
     width: 100%;
@@ -37,13 +39,13 @@
     color: azure;
     transition: 0.5s;
 }
-.navbar .list .loggedIn {
+.navbar .list .user span{
     margin-left: auto;
-    color: black;
+    color: white;
 }
 @media only screen and (max-width: 786px){
     .navbar {
-        position: fixed;
+        position: relative;
         bottom: 0;
         height: 15vh;
     }
@@ -66,37 +68,41 @@
 }
 /* experience page styles */
 .center {
-    margin-top: 5em;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit);
+    gap: 2em;
     width: 100%;
+    height: 100%;
+    padding: 2em;
 }
-.center ul {
+.center .item {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-left: 5rem;
     line-height: 4rem;
 }
-.center ul > li > a {
+.center .itemLink {
     font-size: 1.5em;
     text-decoration: none;
-    color: white;
+    color: purple;
     list-style-type: none;
 }
-.center ul > li {
-    list-style-type: none;
-}
-.center ul > li > a:hover {
+.center .itemLink:hover {
     font-size: 2em;
     color: rebeccapurple;
+    border-bottom: solid 1px rebeccapurple;
     transition: 0.5s;
     cursor: pointer;
 }
 /* home styles*/
 .home {
-    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     text-align: center;
     padding: 2rem;
+    height: 100%;
 }
 .home p {
     padding: 1rem;

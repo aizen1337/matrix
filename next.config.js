@@ -3,13 +3,16 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'poweredwith.nyc3.cdn.digitaloceanspaces.com',
-        port: '',
-        pathname: '/images/domains/**'
-      }
+        {
+          protocol: 'https',
+          hostname: 'picsum.photos',
+          port: '',
+          pathname: '/**'
+        }
     ]
+  },
+  experimental: {
+    appDir: true
   }
 }
 

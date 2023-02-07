@@ -1,5 +1,5 @@
 import React from 'react'
-import { PostForm } from '../../../components/PostForm'
+import { PostForm } from './PostForm'
 const page = () => {
   return (
     <div>

@@ -1,21 +1,27 @@
+'use client'
 import Head from "./head"
-import Navbar from "../components/Navbar"
 import '../styles/globals.css'
-import { Providers } from "../components/Providers"
+import { SessionProvider } from "next-auth/react"
+import { Session } from "next-auth"
+import Sidebar from "../components/Sidebar/Sidebar"
 export default function RootLayout({
   children,
+  session
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  session: Session
 }) {
   return (
 
     <html>
       <Head />
       <body>
-        <Navbar/>
-        <Providers>
+        <SessionProvider session={session}>
+        <Sidebar/>
+        <div className="content">
         {children}
-        </Providers>
+        </div>
+        </SessionProvider>
       </body>
     </html>
 

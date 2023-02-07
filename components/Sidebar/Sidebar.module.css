@@ -1,0 +1,125 @@
+.sidebar {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100vh;
+   width: 80px;
+   background-color: #262626;
+   padding: 0.4rem 0.8rem;
+   transition: all 0.5s ease;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.sidebar.active {
+    width: 90vw;
+    align-items: initial;
+    z-index: 100;
+}
+
+.sidebar.active .menu {
+    left: 90%;
+}
+.sidebar .top .logo {
+    color: lightgreen;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+}
+.sidebar .menu {
+    position: absolute;
+    color: lightgreen;
+    top: 0.4rem;
+    margin-left: 50px;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+}
+.sidebar.active .top .logo {
+    opacity: 1;
+}
+.sidebar .user p {
+    opacity: 0;
+}
+.sidebar .active {
+    opacity: 1;
+}
+.sidebar ul li{
+    position: relative;
+    list-style-type: none;
+    height: 50px;
+    width: 80%;
+}
+.sidebar ul li .anchor {
+    color: lightgreen;
+    display: flex;
+    text-decoration: none;
+    border-radius: 0.8rem;
+    width: 80%;
+}
+.sidebar ul li .anchor:hover {
+    transition: 0.5s;
+    background-color: lightgreen;
+    color: black;
+}
+.sidebar ul li .anchor .icon {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+}
+.sidebar .name {
+    opacity: 0;
+}
+.sidebar.active .name {
+    opacity: 1;
+}
+.tooltip {
+    position: absolute;
+    left: 125px;
+    top: 10%;
+    transform: translateX(-50%, -50%);
+    box-shadow: 0 0.5rem 0.8rem rgba(0,0,0,0.2);
+    background-color: lightgreen;
+    color: black;
+    border-radius: 0.6rem;
+    padding: .4rem 1.2rem;
+    line-height: 1.8rem;
+    z-index: 20;
+    opacity: 0;
+}
+.sidebar.active .tooltip {
+    opacity: 0;
+}
+.sidebar ul li:hover .tooltip {
+    transition: 0.5s;
+    opacity: 1;
+}
+.top .logo {
+    font-size: 2rem;
+    margin-right: 5px;
+}
+.user {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+.sidebar.active .user p {
+    color: lightgreen;
+    opacity: 1;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    text-decoration: none;
+}
+.user img{
+    border-radius: 100%;
+    border: 2px solid lightgreen;
+    width: 50px;
+    height: 50px;
+}
+
+

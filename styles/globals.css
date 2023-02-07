@@ -13,3 +13,17 @@ body {
   max-height: 100vh;
   max-width: 100vw;
 }
+.sidebar.active ~ .content {
+    left: 80px;
+    width: calc(100% - 80px);
+    height: 100vh;
+}
+.content {
+  position: relative;
+  top: 0;
+  left: 2rem;
+  transition: all 0.5 ease;
+  width: calc(100% - 2rem);
+  display: flex;
+  flex-direction: column;
+}

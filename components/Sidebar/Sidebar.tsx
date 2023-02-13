@@ -1,14 +1,21 @@
 'use client'
 import React, {useState} from 'react'
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Sidebar.module.css';
+import { useUser, useSupabaseClient, Session } from '@supabase/auth-helpers-react'
 import {TfiFacebook,TfiAlignJustify, TfiHome,TfiSearch,TfiPowerOff,TfiUser, TfiSettings} from 'react-icons/tfi'
 import NavbarIcon from './NavbarIcon';
+import { supabase } from '../../lib/supabase';
 const Sidebar = () => { 
-    const {data: session} = useSession();
     const [open,setOpen] = useState<Boolean>(false)
+    const logOut = async () => {
+        console.log('logged out')
+        const {error} = await supabase.auth.signOut()
+        if (error) console.log(error)
+    }
+    const currentUser = useUser()
+    console.log(currentUser)
   return (
     <>
     <aside className={open ? `${styles.sidebar} ${styles.active}` : styles.sidebar}>
@@ -21,15 +28,15 @@ const Sidebar = () => {
             </div>
             <TfiAlignJustify className={styles.menu}  onClick={() => setOpen(!open)}/>
         </section>
-        {session?.user && 
+        {currentUser && 
         <section className={styles.user}>
-            <Link href={`/user/${session.user.email}`} style={{
+            <Link href={`/user/${currentUser.id}`} style={{
                 textDecoration: 'none'
             }}>
-            <Image src={session.user?.image as string} width={50} height={50} alt="user avatar"/>
+            <Image src={currentUser.user_metadata?.avatar_url} width={50} height={50} alt="user avatar"/>
             <div>
                 <p>
-                    {session.user.name}
+                    {currentUser.user_metadata?.name || currentUser.email}
                 </p>
             </div>
             </Link>
@@ -40,7 +47,13 @@ const Sidebar = () => {
             <NavbarIcon icon={<TfiSearch/>} name={'Search'} destination={'#'}/>
             <NavbarIcon icon={<TfiUser/>} name={'Friends'} destination={'/friends'}/>
             <NavbarIcon icon={<TfiSettings/>} name={'Settings'} destination={'/settings'}/>
-            <NavbarIcon icon={<TfiPowerOff/>} name={'Logout'} destination={'/login'}/>
+            {currentUser ?
+              <div onClick={() => logOut()}>
+              <NavbarIcon icon={<TfiPowerOff/>} onClick={() => logOut()} name={'Logout'} />
+              </div>
+              :
+              <NavbarIcon icon={<TfiPowerOff/>} name={'Login'} destination={'/login'}/>  
+            }
         </ul>
     </aside>
     </>

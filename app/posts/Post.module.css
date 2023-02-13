@@ -1,0 +1,41 @@
+.item {
+    width: 600px;
+    background-color: #262626;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+.image {
+    width: 100%;
+}
+.top {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    height: 2rem;
+    margin: 1rem;
+}
+.action {
+    display: flex;
+    width: 100%;
+    height: 1rem;
+    padding: 1rem;
+}
+.action .icon {
+    font-size: 2rem;
+    margin-inline: 1rem;
+}
+.save {
+    font-size: 2rem;
+    margin-left: auto;
+}
+.bottom {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.bottom p {
+    height: 5px;
+}

@@ -1,20 +1,13 @@
 'use client'
 import React from 'react'
-import { useSession, signIn, signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation';
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { Auth, ThemeSupa, } from '@supabase/auth-ui-react'
+import { Provider } from '@supabase/supabase-js';
 const Page = () => {
-    const router = useRouter();
-    const {data: session} = useSession();
-    if(session) {
-        router.push('/')
-    }
-    else {
+    const session = useSession()
+    const supabase = useSupabaseClient()
         return (
-        <section>
-            <button onClick={() => signIn()}>Zaloguj</button>
-        </section>
+            <Auth providers={["google" as Provider, "facebook" as Provider]} supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
         )
-    }
 }
-
 export default Page

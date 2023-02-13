@@ -17,7 +17,6 @@ interface Post {
   post_author: number
 }
 async function getPosts() {
-    console.log(supabase)
     const {data} = await supabase.from('posts').select();
     return data as Post[]
 } 

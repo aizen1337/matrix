@@ -52,6 +52,7 @@
     list-style-type: none;
     height: 50px;
     width: 80%;
+    cursor: pointer;
 }
 .sidebar ul li .anchor {
     color: lightgreen;
@@ -93,7 +94,7 @@
     opacity: 0;
 }
 .sidebar.active .tooltip {
-    opacity: 0;
+    display: none;
 }
 .sidebar ul li:hover .tooltip {
     transition: 0.5s;

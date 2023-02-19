@@ -3,21 +3,25 @@ import Link from 'next/link'
 import PostStyles from './Post.module.css'
 import {TfiHeart,TfiCommentAlt,TfiLocationArrow,TfiSave,TfiMore} from 'react-icons/tfi'
 import Image from 'next/image'
+import { formatDistance, subDays } from 'date-fns'
 interface Post {
     id: number,
-    created_at: Date,
+    created_at: string,
     body?: string,
     title?: string,
     snippet: string,
-    post_author: string,
-    image_directory: string
+    post_author?: string,
+    username: string,
+    image_directory: string,
+    user_id?: string,
+    status?: string
   }
-const Post = ({id,post_author,snippet,created_at, image_directory,title}: Post) => {
+const Post = ({id,username,snippet,created_at, image_directory,title}: Post) => {
   return (
     <>
     <section className={PostStyles.item} key={id}>
         <div className={PostStyles.top}>
-            <h1>{post_author}</h1>
+            <h6>{username}</h6>
             <TfiMore/>
         </div>
         <Link style={{
@@ -25,8 +29,7 @@ const Post = ({id,post_author,snippet,created_at, image_directory,title}: Post) 
          }} href={`/posts/${id}`}>
         <div className={PostStyles.image}>
           <Image src={image_directory}
-          width={550}
-          height={1000}
+          fill
           alt={title || 'post image'}/>
         </div>
         </Link>
@@ -37,10 +40,12 @@ const Post = ({id,post_author,snippet,created_at, image_directory,title}: Post) 
             <TfiSave className={PostStyles.save}/>
         </div>
         <div className={PostStyles.bottom}>
-          <p>1204123 likes</p>
-          <p>{post_author}</p>
+          <div className={PostStyles.likesandusername}>
+            <p className={PostStyles.likes}>1204123 likes</p>
+            <p className={PostStyles.username}>{username}</p>
+          </div>
           <p>{snippet}</p>
-          <p>{created_at.toString()}</p>
+          <small>{formatDistance(new Date(created_at), new Date(), { addSuffix: true })}</small>
         </div>
     </section>
     <hr></hr>

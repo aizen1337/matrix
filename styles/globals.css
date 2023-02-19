@@ -3,6 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  
 }
 html {
   font-family: 'Clash Display', sans-serif;
@@ -28,4 +29,15 @@ body {
   flex-direction: column;
   max-height: 100vh;
   overflow-y: scroll;
+}
+.content::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.content::-webkit-scrollbar-thumb {
+  background: darkgreen;
+  border-radius: 10px;
+}
+.content::-webkit-scrollbar-track {
+  background: transparent;
 }

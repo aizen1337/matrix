@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Sidebar.module.css';
 import { useUser, useSupabaseClient, Session } from '@supabase/auth-helpers-react'
-import {TfiFacebook,TfiAlignJustify, TfiHome,TfiSearch,TfiPowerOff,TfiUser, TfiSettings} from 'react-icons/tfi'
+import {TfiImage,TfiAlignJustify, TfiHome,TfiSearch,TfiPowerOff,TfiUser, TfiSettings} from 'react-icons/tfi'
 import NavbarIcon from './NavbarIcon';
 import { supabase } from '../../lib/supabase';
 const Sidebar = () => { 
@@ -12,21 +12,19 @@ const Sidebar = () => {
     const logOut = async () => {
         console.log('logged out')
         const {error} = await supabase.auth.signOut()
-        if (error) console.log(error)
     }
     const currentUser = useUser()
-    console.log(currentUser)
   return (
     <>
     <aside className={open ? `${styles.sidebar} ${styles.active}` : styles.sidebar}>
         <section className={styles.top}>
             <div className={styles.logo}>
-                <TfiFacebook/>
+                <TfiImage/>
                 <span>
-                    Fakelook
+                    matrix
                 </span>
             </div>
-            <TfiAlignJustify className={styles.menu}  onClick={() => setOpen(!open)}/>
+            <TfiAlignJustify className={styles.menu} onClick={() => setOpen(!open)}/>
         </section>
         {currentUser && 
         <section className={styles.user}>
@@ -48,9 +46,7 @@ const Sidebar = () => {
             <NavbarIcon icon={<TfiUser/>} name={'Friends'} destination={'/friends'}/>
             <NavbarIcon icon={<TfiSettings/>} name={'Settings'} destination={'/settings'}/>
             {currentUser ?
-              <div onClick={() => logOut()}>
               <NavbarIcon icon={<TfiPowerOff/>} onClick={() => logOut()} name={'Logout'} />
-              </div>
               :
               <NavbarIcon icon={<TfiPowerOff/>} name={'Login'} destination={'/login'}/>  
             }

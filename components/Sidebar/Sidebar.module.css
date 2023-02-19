@@ -33,7 +33,7 @@
     position: absolute;
     color: lightgreen;
     top: 0.4rem;
-    margin-left: 50px;
+    margin-left: 2.2rem;
     cursor: pointer;
     height: 50px;
     width: 50px;
@@ -122,5 +122,12 @@
     width: 50px;
     height: 50px;
 }
-
+@media screen and (max-width: 800px) {
+    .sidebar {
+        display: none;
+    }
+    .sidebar .menu {
+        display: initial;
+    }
+}
 

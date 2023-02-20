@@ -127,7 +127,7 @@
         display: none;
     }
     .sidebar .menu {
-        display: initial;
+        display: flex;
     }
 }
 

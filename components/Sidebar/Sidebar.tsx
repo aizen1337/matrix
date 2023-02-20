@@ -5,7 +5,7 @@ import Image from 'next/image';
 import styles from './Sidebar.module.css';
 import { useUser, useSupabaseClient, Session } from '@supabase/auth-helpers-react'
 import {TfiImage,TfiAlignJustify, TfiHome,TfiSearch,TfiPowerOff,TfiUser, TfiSettings} from 'react-icons/tfi'
-import NavbarIcon from './NavbarIcon';
+import Icon from './Icon';
 import { supabase } from '../../lib/supabase';
 const Sidebar = () => { 
     const [open,setOpen] = useState<Boolean>(false)
@@ -41,14 +41,14 @@ const Sidebar = () => {
         </section>
         }
         <ul>
-            <NavbarIcon icon={<TfiHome/>} name={'Home'} destination={'/'}/>
-            <NavbarIcon icon={<TfiSearch/>} name={'Search'} destination={'#'}/>
-            <NavbarIcon icon={<TfiUser/>} name={'Friends'} destination={'/friends'}/>
-            <NavbarIcon icon={<TfiSettings/>} name={'Settings'} destination={'/settings'}/>
+            <Icon icon={<TfiHome/>} name={'Home'} destination={'/'}/>
+            <Icon icon={<TfiSearch/>} name={'Search'} destination={'#'}/>
+            <Icon icon={<TfiUser/>} name={'Friends'} destination={'/friends'}/>
+            <Icon icon={<TfiSettings/>} name={'Settings'} destination={'/settings'}/>
             {currentUser ?
-              <NavbarIcon icon={<TfiPowerOff/>} onClick={() => logOut()} name={'Logout'} />
+              <Icon icon={<TfiPowerOff/>} onClick={() => logOut()} name={'Logout'} />
               :
-              <NavbarIcon icon={<TfiPowerOff/>} name={'Login'} destination={'/login'}/>  
+              <Icon icon={<TfiPowerOff/>} name={'Login'} destination={'/login'}/>  
             }
         </ul>
     </aside>

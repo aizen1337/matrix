@@ -6,10 +6,9 @@ type Props = {
     name: string
     destination?: string,
     onClick?: any;
-
 }
 
-const NavbarIcon = ({icon,destination,name}: Props) => {
+const Icon = ({icon,destination,name}: Props) => {
   return (
     <>
     <li>
@@ -24,10 +23,9 @@ const NavbarIcon = ({icon,destination,name}: Props) => {
             <span className={styles.name}>{name}</span>
         </div>
     }
-    <span className={styles.tooltip}>{name}</span>
     </li>
     </>
   )
 }
 
-export default NavbarIcon
+export default Icon

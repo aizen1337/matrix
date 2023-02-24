@@ -19,7 +19,7 @@ const Post = ({id,username,snippet,created_at, image_directory,title, user_id}: 
     <>
     <section className={PostStyles.item} key={id}>
         <div className={PostStyles.top}>
-            <h6>{username}</h6>
+            <h2>{username}</h2>
             <TfiMore/>
         </div>
         <Link style={{
@@ -46,8 +46,8 @@ const Post = ({id,username,snippet,created_at, image_directory,title, user_id}: 
             <p className={PostStyles.likes}>1204123 <b>likes</b></p>
             <Link style={{
               textDecoration: 'none',
-              color: 'darkgreen'
-            }}href={`/user/${user_id}`} className={PostStyles.username}><strong>{username}</strong></Link>
+              color: 'lightgreen'
+            }}href={`/user/${user_id}`} className={PostStyles.username}><h3>{username}</h3></Link>
           </div>
           <p>{snippet}</p>
           <small>{formatDistance(new Date(created_at), new Date(), {addSuffix: true})}</small>

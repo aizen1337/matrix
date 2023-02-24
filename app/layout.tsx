@@ -2,16 +2,13 @@
 import Head from "./head"
 import '../styles/globals.css'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
+import { SessionContextProvider} from '@supabase/auth-helpers-react'
 import Sidebar from "../components/Sidebar/Sidebar"
 import { useState } from "react"
-import { supabase } from "../lib/supabase"
 export default function RootLayout({
-  children,
-  session
+  children
 }: {
-  children: React.ReactNode,
-  session: Session
+  children: React.ReactNode
 }) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient({
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -21,7 +18,7 @@ export default function RootLayout({
     <html>
       <Head />
       <body>
-      <SessionContextProvider supabaseClient={supabaseClient} initialSession={session}>
+      <SessionContextProvider supabaseClient={supabaseClient}>
           <Sidebar/>
           <div className="content">
             {children}
@@ -29,6 +26,5 @@ export default function RootLayout({
        </SessionContextProvider>
       </body>
     </html>
-
   )
 }

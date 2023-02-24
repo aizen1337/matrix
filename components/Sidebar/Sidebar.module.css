@@ -50,6 +50,7 @@
 .sidebar ul li{
     position: relative;
     list-style-type: none;
+    margin-left: 1rem;
     height: 50px;
     width: 80%;
     cursor: pointer;

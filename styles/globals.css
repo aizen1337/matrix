@@ -15,18 +15,20 @@ body {
   max-width: 100vw;
 }
 .sidebar.active ~ .content {
-    left: 80px;
-    width: calc(100% - 80px);
+    margin-left: 2rem;
+    left: 5rem;
+    width: calc(100% - 5rem);
     height: 100vh;
 }
 .content {
   position: relative;
   top: 0;
-  left: 2rem;
+  left: 5rem;
   transition: all 0.5 ease;
-  width: calc(100% - 2rem);
+  width: calc(100% - 5rem);
   display: flex;
   flex-direction: column;
+  align-items: center;
   max-height: 100vh;
   overflow-y: scroll;
 }

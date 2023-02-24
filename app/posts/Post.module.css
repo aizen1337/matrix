@@ -40,17 +40,13 @@
     margin-left: auto;
 }
 .bottom {
-    width: 100%;
+    width: 100%;    
+    margin-top: 2rem;
 }
 .likesandusername {
+    margin-inline: 1rem;
     display: flex;
     justify-content: space-between;
-    margin: 1rem;
-    margin-left: auto;
     height: 2rem;
     width: 100%;
-}
-.likes, .username {
-    padding: 0;
-    margin: 0
 }

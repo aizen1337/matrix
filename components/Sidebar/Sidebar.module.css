@@ -3,7 +3,7 @@
    top: 0;
    left: 0;
    height: 100vh;
-   width: 80px;
+   width: 5rem;
    background-color: #262626;
    padding: 0.4rem 0.8rem;
    transition: all 0.5s ease;
@@ -12,13 +12,13 @@
    align-items: center;
 }
 .sidebar.active {
-    width: 90vw;
+    width: 30vw;
     align-items: initial;
     z-index: 100;
 }
 
 .sidebar.active .menu {
-    left: 90%;
+    left: 75%;
 }
 .sidebar .top .logo {
     color: lightgreen;
@@ -33,7 +33,7 @@
     position: absolute;
     color: lightgreen;
     top: 0.4rem;
-    margin-left: 2.2rem;
+    margin-left: 2rem;
     cursor: pointer;
     height: 50px;
     width: 50px;
@@ -122,12 +122,18 @@
     width: 50px;
     height: 50px;
 }
-@media screen and (max-width: 800px) {
-    .sidebar {
-        display: none;
+@media screen and (max-width: 768px) {
+    .sidebar .top {
+        margin-top: 5rem;
     }
     .sidebar .menu {
-        display: flex;
+        margin-left: 10px;
+        left: 0;
     }
-}
-
+    .sidebar.active {
+        width: 50vw;
+    }
+    .sidebar.active .menu {
+        margin-left: -10px;
+    }
+} 

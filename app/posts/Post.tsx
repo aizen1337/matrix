@@ -3,20 +3,18 @@ import Link from 'next/link'
 import PostStyles from './Post.module.css'
 import {TfiHeart,TfiCommentAlt,TfiLocationArrow,TfiSave,TfiMore} from 'react-icons/tfi'
 import Image from 'next/image'
-import { formatDistance, subDays } from 'date-fns'
+import { formatDistance,formatISO } from 'date-fns'
 interface Post {
     id: number,
     created_at: string,
     body?: string,
     title?: string,
     snippet: string,
-    post_author?: string,
     username: string,
+    user_id: string,
     image_directory: string,
-    user_id?: string,
-    status?: string
   }
-const Post = ({id,username,snippet,created_at, image_directory,title}: Post) => {
+const Post = ({id,username,snippet,created_at, image_directory,title, user_id}: Post) => {
   return (
     <>
     <section className={PostStyles.item} key={id}>
@@ -25,11 +23,15 @@ const Post = ({id,username,snippet,created_at, image_directory,title}: Post) => 
             <TfiMore/>
         </div>
         <Link style={{
-      textDecoration: 'none'
+          textDecoration: 'none'
          }} href={`/posts/${id}`}>
         <div className={PostStyles.image}>
-          <Image src={image_directory}
+          <Image 
+          src={image_directory}
           fill
+          priority={false}
+          sizes=" 
+          "
           alt={title || 'post image'}/>
         </div>
         </Link>
@@ -41,11 +43,14 @@ const Post = ({id,username,snippet,created_at, image_directory,title}: Post) => 
         </div>
         <div className={PostStyles.bottom}>
           <div className={PostStyles.likesandusername}>
-            <p className={PostStyles.likes}>1204123 likes</p>
-            <p className={PostStyles.username}>{username}</p>
+            <p className={PostStyles.likes}>1204123 <b>likes</b></p>
+            <Link style={{
+              textDecoration: 'none',
+              color: 'darkgreen'
+            }}href={`/user/${user_id}`} className={PostStyles.username}><strong>{username}</strong></Link>
           </div>
           <p>{snippet}</p>
-          <small>{formatDistance(new Date(created_at), new Date(), { addSuffix: true })}</small>
+          <small>{formatDistance(new Date(created_at), new Date(), {addSuffix: true})}</small>
         </div>
     </section>
     <hr></hr>

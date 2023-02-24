@@ -19,12 +19,10 @@ export default async function Home() {
   const posts = await getPosts()
   return (
     <>  
-        <main className={styles.home}>
         {
         posts?.map((post: Post) => (
-            <Post key={post.id} id={post.id} username={post.username} snippet={post.snippet} created_at={post.created_at} image_directory={post.image_directory} title={post.title}/>
+            <Post key={post.id} id={post.id} username={post.username} snippet={post.snippet} created_at={post.created_at} image_directory={post.image_directory} title={post.title} user_id={post.user_id}/>
         ))}
-        </main>
     </>
   )
 }

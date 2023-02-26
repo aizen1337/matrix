@@ -8,10 +8,10 @@ type Props = {
     onClick?: any;
 }
 
-const Icon = ({icon,destination,name}: Props) => {
+const Icon = ({icon,destination,name, onClick}: Props) => {
   return (
     <>
-    <li>
+    <li onClick={onClick}>
     {destination ? 
         <Link className={styles.anchor} href={destination as string}>
             <i className={styles.icon}>{icon}</i>

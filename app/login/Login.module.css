@@ -13,6 +13,7 @@
     --btn-color-google: rgb(136, 61, 61);
 }
 .facebook {
+    cursor: pointer;   
     border: .25em solid var(--glow-color);
     padding: 1em 3em;
     color: var(--glow-color);
@@ -44,6 +45,7 @@
            inset 0 0 .5em .25em var(--glow-color);
    }
    .google {
+    cursor: pointer;   
     border: .25em solid var(--glow-color-google);
     padding: 1em 3em;
     color: var(--glow-color-google);

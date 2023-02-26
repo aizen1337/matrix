@@ -3,23 +3,36 @@ import Link from 'next/link'
 import PostStyles from './Post.module.css'
 import {TfiHeart,TfiCommentAlt,TfiLocationArrow,TfiSave,TfiMore} from 'react-icons/tfi'
 import Image from 'next/image'
-import { formatDistance,formatISO } from 'date-fns'
+import { formatDistance } from 'date-fns'
 interface Post {
     id: number,
     created_at: string,
     body?: string,
     title?: string,
     snippet: string,
-    username: string,
-    user_id: string,
+    metadata: Metadata,
+    post_author: string,
     image_directory: string,
   }
-const Post = ({id,username,snippet,created_at, image_directory,title, user_id}: Post) => {
+  interface Metadata {
+    name: string,
+    full_name: string,
+    email_verified: boolean,
+    picture: string
+    email: string
+  }
+const Post = ({id,snippet,created_at, image_directory,title, post_author, metadata}: Post) => {
   return (
     <>
     <section className={PostStyles.item} key={id}>
         <div className={PostStyles.top}>
-            <h2>{username}</h2>
+            <Link style={{
+              textDecoration: 'none',
+              color: 'lightgreen'
+            }}href={`/user/${post_author}`} className={PostStyles.user}>
+            <Image src={metadata.picture} width={40} height={40} alt={metadata.full_name}/>
+            <h2>{metadata.full_name || metadata.email}</h2>
+            </Link>
             <TfiMore/>
         </div>
         <Link style={{
@@ -47,7 +60,7 @@ const Post = ({id,username,snippet,created_at, image_directory,title, user_id}: 
             <Link style={{
               textDecoration: 'none',
               color: 'lightgreen'
-            }}href={`/user/${user_id}`} className={PostStyles.username}><h3>{username}</h3></Link>
+            }}href={`/user/${post_author}`} className={PostStyles.username}><h3>{metadata.full_name}</h3></Link>
           </div>
           <p>{snippet}</p>
           <small>{formatDistance(new Date(created_at), new Date(), {addSuffix: true})}</small>

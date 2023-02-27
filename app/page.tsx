@@ -1,6 +1,6 @@
 import styles from '../styles/Styles.module.css'
 import { supabase } from '../lib/supabase'
-import Post from './posts/Post'
+import Post, { PostInterface } from './posts/Post'
 export const dynamic='auto',
 dynamicParams= true,
 revalidate=0,
@@ -12,7 +12,7 @@ async function getPosts() {
     console.log(error);
   }
   else {
-    return data as Post[]
+    return data as PostInterface[]
   }
 }
 export default async function Home() {
@@ -20,7 +20,7 @@ export default async function Home() {
   return (
     <>  
         {
-        posts?.map((post: Post) => (
+        posts?.map((post: PostInterface) => (
             <Post key={post.id} id={post.id} snippet={post.snippet} created_at={post.created_at} image_directory={post.image_directory} title={post.title} post_author={post.post_author} metadata={post.metadata}/>
         ))}
     </>

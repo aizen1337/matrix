@@ -1,11 +1,11 @@
 import React from 'react'
 import { supabase } from '../../../lib/supabase'
-import Post from '../Post';
+import Post, { PostInterface } from '../Post';
 async function getPost(id: number) {
     const {data,error} = await supabase.rpc('fetch_post', {post_id: id});
     if (error) console.log(error)
     else { 
-        return data as Post[]
+        return data as PostInterface[]
     }
 }
 const page = async ({params}: any) => {

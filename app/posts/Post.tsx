@@ -4,7 +4,7 @@ import PostStyles from './Post.module.css'
 import {TfiHeart,TfiCommentAlt,TfiLocationArrow,TfiSave,TfiMore} from 'react-icons/tfi'
 import Image from 'next/image'
 import { formatDistance } from 'date-fns'
-interface Post {
+export interface Post {
     id: number,
     created_at: string,
     body?: string,
@@ -14,7 +14,7 @@ interface Post {
     post_author: string,
     image_directory: string,
   }
-  interface Metadata {
+  export interface Metadata {
     name: string,
     full_name: string,
     email_verified: boolean,
@@ -29,7 +29,7 @@ const Post = ({id,snippet,created_at, image_directory,title, post_author, metada
             <Link style={{
               textDecoration: 'none',
               color: 'lightgreen'
-            }}href={`/user/${post_author}`} className={PostStyles.user}>
+            }}href={`/account/${post_author}`} className={PostStyles.user}>
             <Image src={metadata.picture} width={40} height={40} alt={metadata.full_name}/>
             <h2>{metadata.full_name || metadata.email}</h2>
             </Link>
@@ -60,7 +60,7 @@ const Post = ({id,snippet,created_at, image_directory,title, post_author, metada
             <Link style={{
               textDecoration: 'none',
               color: 'lightgreen'
-            }}href={`/user/${post_author}`} className={PostStyles.username}><h3>{metadata.full_name}</h3></Link>
+            }}href={`/account/${post_author}`} className={PostStyles.username}><h3>{metadata.full_name}</h3></Link>
           </div>
           <p>{snippet}</p>
           <small>{formatDistance(new Date(created_at), new Date(), {addSuffix: true})}</small>

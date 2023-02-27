@@ -10,18 +10,12 @@ const Page = () => {
             provider: 'facebook',
           })
           if (error) console.log(error)
-          else {
-            console.log(data)
-          }
     }
     const googleLogin = async () => {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
           })
         if (error) console.log(error)
-        else {
-            console.log(data)
-          }
     }
         return ( 
                 <section className={styles.container}>

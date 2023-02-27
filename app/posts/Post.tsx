@@ -4,7 +4,7 @@ import PostStyles from './Post.module.css'
 import {TfiHeart,TfiCommentAlt,TfiLocationArrow,TfiSave,TfiMore} from 'react-icons/tfi'
 import Image from 'next/image'
 import { formatDistance } from 'date-fns'
-export interface Post {
+export interface PostInterface {
     id: number,
     created_at: string,
     body?: string,
@@ -21,7 +21,7 @@ export interface Post {
     picture: string
     email: string
   }
-const Post = ({id,snippet,created_at, image_directory,title, post_author, metadata}: Post) => {
+const Post = ({id,snippet,created_at, image_directory,title, post_author, metadata}: PostInterface) => {
   return (
     <>
     <section className={PostStyles.item} key={id}>

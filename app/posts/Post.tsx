@@ -1,9 +1,12 @@
+'use client'
 import React from 'react'
 import Link from 'next/link'
 import PostStyles from './Post.module.css'
-import {TfiHeart,TfiCommentAlt,TfiLocationArrow,TfiSave,TfiMore} from 'react-icons/tfi'
+import {TfiCommentAlt,TfiLocationArrow,TfiSave,TfiMore} from 'react-icons/tfi'
+import {RiHeartAddLine, RiHeartAddFill} from 'react-icons/ri'
 import Image from 'next/image'
 import { formatDistance } from 'date-fns'
+import { useState } from 'react'
 export interface PostInterface {
     id: number,
     created_at: string,
@@ -22,8 +25,8 @@ export interface PostInterface {
     email: string
   }
 const Post = ({id,snippet,created_at, image_directory,title, post_author, metadata}: PostInterface) => {
+  const [liked,setLiked] = useState(false)
   return (
-    <>
     <section className={PostStyles.item} key={id}>
         <div className={PostStyles.top}>
             <Link style={{
@@ -49,7 +52,7 @@ const Post = ({id,snippet,created_at, image_directory,title, post_author, metada
         </div>
         </Link>
         <div className={PostStyles.action}>
-            <TfiHeart className={PostStyles.icon}/>
+            {!liked ? <RiHeartAddLine className={PostStyles.icon} onClick={() => setLiked(true)}/> : <RiHeartAddFill className={PostStyles.icon} onClick={() => setLiked(false)}/> }
             <TfiCommentAlt className={PostStyles.icon}/>
             <TfiLocationArrow className={PostStyles.icon}/>
             <TfiSave className={PostStyles.save}/>
@@ -66,8 +69,6 @@ const Post = ({id,snippet,created_at, image_directory,title, post_author, metada
           <small>{formatDistance(new Date(created_at), new Date(), {addSuffix: true})}</small>
         </div>
     </section>
-    <hr></hr>
-    </>
   )
 }
 

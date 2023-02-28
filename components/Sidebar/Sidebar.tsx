@@ -23,7 +23,7 @@ const Sidebar = () => {
         </section>
         {currentUser && 
         <section className={styles.user}>
-            <Link href={`/user/${currentUser.id}`} style={{
+            <Link href={`/account/${currentUser.id}`} style={{
                 textDecoration: 'none'
             }}>
             <Image src={currentUser.user_metadata?.avatar_url} width={50} height={50} alt="user avatar"/>

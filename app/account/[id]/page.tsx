@@ -29,6 +29,7 @@ const page = async ({params}: any) => {
     return (
       <>
         <section className={AccountPage.top}>
+          <div>
           <Image
           src={user[0].metadata.picture}
           width={100}
@@ -36,20 +37,25 @@ const page = async ({params}: any) => {
           alt={user[0].metadata.full_name}
           className={AccountPage.avatar}
           />
-          {user[0].metadata.email_verified && <TfiCheck className={AccountPage.badge}/>}
+          </div>
           <div className={AccountPage.username}>
-            <h1>{user[0].metadata.full_name}</h1>
+            <h1>{user[0].metadata.full_name} {user[0].metadata.email_verified && <TfiCheck className={AccountPage.badge}/>}</h1>
             <small>{user[0].metadata.email}</small>
           </div>
           <div className={AccountPage.socialStats}>
-            <h4>Posts: {userPosts?.length} </h4>
+            <h4>
+              {userPosts?.length} posts/post
+            </h4>
             <h4 className={AccountPage.fans}>124123 fans</h4>
             <h4>Following: 13123</h4>
           </div>
           </section>
-          {userPosts && userPosts.map((post: PostInterface) => (
+          { userPosts &&
+            userPosts?.length > 0 ? userPosts.map((post: PostInterface) => (
               <Post key={post.id} id={post.id} snippet={post.snippet} created_at={post.created_at} image_directory={post.image_directory} title={post.title} post_author={post.post_author} metadata={post.metadata}/>
-          ))}
+          )):
+          <h1>User hasn`t posted anything yet.</h1>
+          }
       </>
     )
   }

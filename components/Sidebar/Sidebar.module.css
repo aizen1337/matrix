@@ -6,7 +6,7 @@
    width: 5rem;
    background-color: #262626;
    padding: 0.4rem 0.8rem;
-   transition: all 0.5s ease;
+   transition: all 0.5s ease-in-out;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -33,7 +33,7 @@
     position: absolute;
     color: lightgreen;
     top: 0.4rem;
-    margin-left: 2rem;
+    margin-left: 2.4rem;
     cursor: pointer;
     height: 50px;
     width: 50px;
@@ -44,23 +44,23 @@
 .sidebar .user p {
     opacity: 0;
 }
-.sidebar .active {
-    opacity: 1;
-}
-.sidebar ul li{
+.sidebar ul {
+    margin-top: 2rem;
     position: relative;
     list-style-type: none;
-    margin-left: 1rem;
-    height: 50px;
-    width: 80%;
+    width: 100%;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 .sidebar ul li .anchor {
     color: lightgreen;
     display: flex;
     text-decoration: none;
-    border-radius: 0.8rem;
-    width: 80%;
+    border-radius: 1rem;
+    width: 100%;
+    font-size: 1.5rem;
 }
 .sidebar ul li .anchor:hover {
     transition: 0.5s;
@@ -93,9 +93,6 @@
     line-height: 1.8rem;
     z-index: 20;
     opacity: 0;
-}
-.sidebar.active .tooltip {
-    display: none;
 }
 .sidebar ul li:hover .tooltip {
     transition: 0.5s;

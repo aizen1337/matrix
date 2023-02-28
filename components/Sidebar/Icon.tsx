@@ -24,6 +24,7 @@ const Icon = ({icon,destination,name, onClick}: Props) => {
         </div>
     }
     </li>
+    <span className={styles.tooltip}>{name}</span>
     </>
   )
 }

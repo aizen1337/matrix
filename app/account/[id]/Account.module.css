@@ -11,19 +11,25 @@
     border-radius: 50%;
 }
 .badge {
-    position: absolute;
-    bottom: 0;
-    margin-left: 5rem;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
     border: green 1px solid;
     background-color: green;
     border-radius: 50%;
+    padding: 5px;
 }
 .username {
+    font-size: clamp(0.5rem, 1.5rem, 2rem);
     margin-left: 1rem;
 }
+.username h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
 .socialStats {
+    font-size: clamp(15px, 25px, 2rem);
+    gap: 1rem;
     margin-left: auto;
     display: flex;
     flex-direction: column;
@@ -31,4 +37,18 @@
 }
 .fans {
     color: green;
+}
+@media screen and (max-width: 768px) {
+    .top {
+        flex-direction: column;
+        align-items: center;
+    }
+    .socialStats {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0;
+        white-space: nowrap;
+        font-size: 15px;
+    }
 }

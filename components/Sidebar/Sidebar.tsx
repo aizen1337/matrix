@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Sidebar.module.css';
 import { useUser } from '@supabase/auth-helpers-react'
-import {TfiImage,TfiAlignJustify, TfiHome,TfiSearch,TfiPowerOff,TfiUser, TfiSettings,TfiPlus} from 'react-icons/tfi'
+import {TfiImage,TfiAlignJustify, TfiHome,TfiSearch,TfiPowerOff,TfiUser, TfiSettings,TfiPlus, TfiShiftRight} from 'react-icons/tfi'
 import Icon from './Icon';
 import { supabase } from '../../lib/supabase';
 const Sidebar = () => { 
@@ -37,13 +37,14 @@ const Sidebar = () => {
         }
         <ul>
             <Icon icon={<TfiHome/>} name={'Home'} destination={'/'}/>
+            <Icon icon={<TfiPlus/>} name={'Add'} destination={'/posts/new'}/>
             <Icon icon={<TfiSearch/>} name={'Search'} destination={'#'}/>
             <Icon icon={<TfiUser/>} name={'Friends'} destination={'/friends'}/>
             <Icon icon={<TfiSettings/>} name={'Settings'} destination={'/settings'}/>
             {currentUser ?
               <Icon icon={<TfiPowerOff/>} onClick={async () => { await supabase.auth.signOut()}} name={'Logout'} />
               :
-              <Icon icon={<TfiPlus/>} name={'Login'} destination={'/login'}/>  
+              <Icon icon={<TfiShiftRight/>} name={'Login'} destination={'/login'}/>  
             }
         </ul>
     </aside>

@@ -1,0 +1,18 @@
+.input {
+    all: unset;
+    border-radius: 1rem;
+    border: lightgreen 1px solid;
+    width: 100%;
+    color: white;
+    padding: 0.5rem;
+}
+.submitButton {
+    all: unset;
+    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 1rem;
+    border: lightgreen 1px solid;
+    color: lightgreen;
+}

@@ -3,20 +3,21 @@ import Post, { Metadata, PostInterface } from "../../posts/Post";
 import Image from "next/dist/client/image";
 import AccountPage from './Account.module.css';
 import {TfiCheck} from 'react-icons/tfi'
+import Link from "next/link";
 interface User {
   user_id: string,
   email: string,
   metadata: Metadata
 }
 async function getUser(id: string) {
-  const {data,error} = await supabase.rpc('fetch_user_data', {id: id});
+  const {data,error} = await supabase.rpc('get_user_data', {query: id});
   if (error) console.log(error)
   else { 
       return data as User[]
   }
 }
 async function getUsersPosts(id: string) {
-  const {data,error} = await supabase.rpc('get_users_posts', {parameter: id});
+  const {data,error} = await supabase.rpc('get_user_posts', {query: id});
   if (error) console.log(error)
   else { 
       return data as PostInterface[]
@@ -50,12 +51,18 @@ const page = async ({params}: any) => {
             <h4>Following: 13123</h4>
           </div>
           </section>
+          <section className={AccountPage.grid}>
           { userPosts &&
             userPosts?.length > 0 ? userPosts.map((post: PostInterface) => (
-              <Post key={post.id} id={post.id} snippet={post.snippet} created_at={post.created_at} image_directory={post.image_directory} title={post.title} post_author={post.post_author} metadata={post.metadata}/>
+            <div className={AccountPage.gridItem} key={post.id} >
+             <Link href={`/posts/${post.id}`} >
+              <Image src={post.image_directory.urls[0]} alt={post.snippet} fill sizes=""/>
+             </Link>
+             </div>
           )):
           <h1>User hasn`t posted anything yet.</h1>
           }
+          </section>
       </>
     )
   }

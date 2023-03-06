@@ -7,15 +7,17 @@ import {RiHeartAddLine, RiHeartAddFill} from 'react-icons/ri'
 import Image from 'next/image'
 import { formatDistance } from 'date-fns'
 import { useState } from 'react'
+import ImageSlider from './ImageSlider'
 export interface PostInterface {
     id: number,
     created_at: string,
-    body?: string,
-    title?: string,
     snippet: string,
     metadata: Metadata,
     post_author: string,
-    image_directory: string,
+    image_directory: PostImages,
+  }
+  export interface PostImages {
+    urls: string[];
   }
   export interface Metadata {
     name: string,
@@ -24,7 +26,7 @@ export interface PostInterface {
     picture: string
     email: string
   }
-const Post = ({id,snippet,created_at, image_directory,title, post_author, metadata}: PostInterface) => {
+const Post = ({id,snippet,created_at, image_directory, post_author, metadata}: PostInterface) => {
   const [liked,setLiked] = useState(false)
   return (
     <section className={PostStyles.item} key={id}>
@@ -38,19 +40,7 @@ const Post = ({id,snippet,created_at, image_directory,title, post_author, metada
             </Link>
             <TfiMore/>
         </div>
-        <Link style={{
-          textDecoration: 'none'
-         }} href={`/posts/${id}`}>
-        <div className={PostStyles.image}>
-          <Image 
-          src={image_directory}
-          fill
-          priority={false}
-          sizes=" 
-          "
-          alt={title || 'post image'}/>
-        </div>
-        </Link>
+        <ImageSlider images={image_directory} id={id} publishedPost/>
         <div className={PostStyles.action}>
             {!liked ? <RiHeartAddLine className={PostStyles.icon} onClick={() => setLiked(true)}/> : <RiHeartAddFill className={PostStyles.icon} onClick={() => setLiked(false)}/> }
             <TfiCommentAlt className={PostStyles.icon}/>

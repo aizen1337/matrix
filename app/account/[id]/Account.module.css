@@ -5,7 +5,7 @@
     padding: 1rem;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 10000;
 }
 .avatar {
     border-radius: 50%;
@@ -17,7 +17,7 @@
     padding: 5px;
 }
 .username {
-    font-size: clamp(0.5rem, 1.5rem, 2rem);
+    font-size: clamp(0.25rem, 1.5rem, 2rem);
     margin-left: 1rem;
 }
 .username h1 {
@@ -26,6 +26,8 @@
     justify-content: center;
     width: 100%;
     justify-content: space-evenly;
+    font-size: clamp(1rem, 1.5rem, 2rem);
+
 }
 .socialStats {
     font-size: clamp(15px, 25px, 2rem);
@@ -38,13 +40,29 @@
 .fans {
     color: green;
 }
+.grid {
+    width: clamp(20rem, 600px, 80vw);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    place-items: center;
+}
+.gridItem {
+    position: relative;
+    width: 15rem;
+    height: 15rem;
+    margin: 1rem;
+}
+.gridItem:hover {
+    border: 1px solid white;
+    transition: 0.5s;
+    transform: scale(1.1);
+}
 @media screen and (max-width: 768px) {
     .top {
         flex-direction: column;
         align-items: center;
     }
     .socialStats {
-        flex-direction: row;
         align-items: center;
         justify-content: center;
         margin-left: 0;

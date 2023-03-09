@@ -11,6 +11,7 @@ const Sidebar = () => {
     const currentUser = useUser()
   return (
     <>
+    <TfiAlignJustify className={styles.menu} onClick={() => setOpen(!open)}/>
     <aside className={open ? `${styles.sidebar} ${styles.active}` : styles.sidebar}>
         <section className={styles.top}>
             <div className={styles.logo}>
@@ -19,7 +20,6 @@ const Sidebar = () => {
                     matrix
                 </span>
             </div>
-            <TfiAlignJustify className={styles.menu} onClick={() => setOpen(!open)}/>
         </section>
         {currentUser && 
         <section className={styles.user}>

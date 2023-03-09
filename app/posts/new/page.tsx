@@ -9,7 +9,4 @@ export default function Page() {
           <PostForm loggedUser={currentUser}/>
     )
   }
-  else {
-    return <h1>Access denied</h1>
-  }
 }

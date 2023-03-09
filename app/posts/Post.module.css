@@ -1,5 +1,5 @@
 .item {
-    width: clamp(18rem, 600px, 80vw);
+    width: clamp(30rem, 600px, 50vw);
     background-color: #262626;
     display: flex;
     flex-direction: column;

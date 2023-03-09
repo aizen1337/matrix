@@ -1,8 +1,8 @@
 'use client'
-import React, { useEffect } from "react"
+import React from "react"
 import { supabase } from "../../../lib/supabase"
-import { ChangeEvent, useRef,useState } from "react"
-import { TfiMore, TfiCommentAlt, TfiLocationArrow, TfiSave, TfiPlus, TfiTrash  } from "react-icons/tfi"
+import { ChangeEvent, useRef } from "react"
+import { TfiMore, TfiCommentAlt, TfiLocationArrow, TfiPlus, TfiTrash  } from "react-icons/tfi"
 import {RiHeartAddLine} from 'react-icons/ri'
 import { User } from '@supabase/supabase-js'
 import Image from "next/image"
@@ -12,78 +12,23 @@ import ImageSlider from "../ImageSlider"
 import {format} from 'date-fns'
 import picture from './picture.jpg'
 import formStyles from './Form.module.css'
+import { usePostContext } from "../PostContext"
 export const PostForm = ({loggedUser}: {
     loggedUser: User
 }) => {
-    const titleRef = useRef<HTMLInputElement>(null)
+    const {uploadPhoto,publishPost,images} = usePostContext();
     const snippetRef = useRef<HTMLInputElement>(null)
-    const bodyRef = useRef<HTMLInputElement>(null)
-    const [paths,setPaths] = useState<Set<string>>(new Set())
-    const [images,setImages] = useState<Set<string>>(new Set())
     const router = useRouter()
-    useEffect(() => {
-      console.log({paths:paths})
-      console.log({images:images})
-    },[paths,images])
-    const uploadPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
-        if(!e.target.files){
-            return 
-        }
-        const file = e.target.files[0]
-            const {data,error} = await supabase
-            .storage
-            .from('profiles')
-            .upload(`${loggedUser.id}/${file.name}`, file, {
-                upsert: true
-            })
-            if(error) {
-                console.log(error)
-            }
-            if(data){
-            setPaths(new Set([...paths, data.path]))
-            getPhotosURLs(data.path)
-            }
-            else {
-            setPaths(new Set([...paths, `${loggedUser.id}/${file.name}`]))
-            getPhotosURLs( `${loggedUser.id}/${file.name}`)
-            }
-    }
-    const getPhotosURLs = async (path: string) => {
-        const { data } = supabase
-        .storage
-        .from('profiles')
-        .getPublicUrl(path)
-        const url = new URL(data.publicUrl)
-        setImages(new Set([...images, url.href]))
-    }
-    const uploadHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-        await uploadPhoto(e)
+    const uploadHandler = async (e: ChangeEvent<HTMLInputElement>, user: User) => {
+        await uploadPhoto({e, user})
     }
     const submitFunction = async(e: any) => {
         e.preventDefault()
-        const formData = new FormData(e.target)
-        const values = Object.fromEntries(formData)
-        if(!loggedUser || !titleRef || !bodyRef || !snippetRef || !e.target.files)
+        if(!loggedUser || !snippetRef ||  !e.target.files)
         {
             console.error("Fields are empty or access denied")
         }
-        const publishPost = async () => {
-            const { error } = await supabase
-            .from('posts')
-            .insert({ 
-                body: values.body,
-                title: values.title,
-                snippet: values.snippet,
-                image_directory: {"urls": [...images]},
-                post_author: loggedUser.id,
-            })
-            if(error) console.log(error)
-            else {
-                console.log("Succesfully added")
-                router.push("/")
-            }
-        }
-        publishPost()
+        publishPost(snippetRef as unknown as string, loggedUser)
     }
   return (
     <form onSubmit={submitFunction}>
@@ -98,7 +43,7 @@ export const PostForm = ({loggedUser}: {
             </div>
             {[...images].length > 0 ?
             <>
-                <ImageSlider images={{urls: [...images]}} title={titleRef as unknown as string}/>
+                <ImageSlider images={{urls: [...images]}} title={snippetRef as unknown as string}/>
             </>
             :
             <div className={PostItem.image}>
@@ -139,7 +84,7 @@ export const PostForm = ({loggedUser}: {
             </div>
             <p><input name='snippet' ref={snippetRef} className={formStyles.input} type='text' required placeholder="your snippet..."/></p>
             <small>{format(new Date(), "'Today is' eeee")}</small>
-            <input type="file" name="image" id="image" hidden onChange={(e) => uploadHandler(e)}  accept=".png, .jpg, .jpeg"/>
+            <input type="file" name="image" id="image" hidden onChange={(e) => uploadHandler(e,loggedUser)}  accept=".png, .jpg, .jpeg"/>
             <button type="submit" className={formStyles.submitButton} disabled={[images].length >= 10}>Opublikuj</button>
             </div>
         </div>

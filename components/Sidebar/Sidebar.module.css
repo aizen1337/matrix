@@ -10,15 +10,12 @@
    display: flex;
    flex-direction: column;
    align-items: center;
+   z-index: 10000000;
 }
 .sidebar.active {
     width: 30vw;
     align-items: initial;
-    z-index: 100;
-}
-
-.sidebar.active .menu {
-    left: 75%;
+    z-index: 10000000;
 }
 .sidebar .top .logo {
     color: lightgreen;
@@ -29,17 +26,23 @@
     pointer-events: none;
     opacity: 0;
 }
-.sidebar .menu {
+.menu {
     position: absolute;
     color: lightgreen;
     top: 0.4rem;
-    margin-left: 2.4rem;
+    margin-left: 1rem;
     cursor: pointer;
     height: 50px;
     width: 50px;
+    z-index: 1000000000;
+}
+.sidebar.active ~ .menu {
+    left: 20rem;
+    margin-left: 20rem !important;
 }
 .sidebar.active .top .logo {
     opacity: 1;
+    margin-top: 3rem;
 }
 .sidebar .user p {
     opacity: 0;
@@ -121,17 +124,17 @@
     height: 50px;
 }
 @media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
     .sidebar .top {
         margin-top: 5rem;
     }
-    .sidebar .menu {
-        margin-left: 10px;
-        left: 0;
-    }
     .sidebar.active {
+        display: initial;
         width: 50vw;
     }
-    .sidebar.active .menu {
-        margin-left: -10px;
+    .sidebar.active + .menu {
+        margin-left: 10vw;
     }
 } 

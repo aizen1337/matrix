@@ -30,7 +30,11 @@ body {
   align-items: center;
   max-height: 100vh;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  transition: 0.5s;
 }
 .content::-webkit-scrollbar {
   width: 10px;

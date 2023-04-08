@@ -1,0 +1,152 @@
+.chat {
+    width: clamp(25rem, 50vw, 80vw);
+    height: 80vh;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    border-radius: 1rem;
+}
+ .chat::-webkit-scrollbar, .list::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+.chat::-webkit-scrollbar-thumb, .list::-webkit-scrollbar-thumb {
+    background: darkgreen;
+    border-radius: 10px;
+  }
+.chat::-webkit-scrollbar-track, .list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+.heading {
+    color: darkgreen;
+}
+.chat:has(.heading) {
+    align-items: center;
+    justify-content: center;
+}
+.flex {
+    display: flex;
+    gap: 2rem;
+    max-height: 100vh;
+}
+.flexElement {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.flexElement:first-child {
+    margin-top: 4rem;
+}
+.list {
+    height: 90vh;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 100%;
+}
+.selected { 
+    background-color: #292929;
+    border-radius: 1rem;
+    filter: brightness(1.2);
+}
+.input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+.textInput {
+    background: #252525;
+    border:solid 1px darkgreen;
+    height: 3vh;
+    margin: 1rem;
+    border-radius: 1rem;
+    color: darkgreen;
+    padding: 1rem;
+    font-size: 1rem;
+    width:clamp(15rem, 20vw, 50vw);
+}
+.sendButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #292929;
+    border:solid 1px darkgreen;
+    padding: 1rem;
+    font-size: 1rem;
+    height: 3vh;
+    border-radius: 1rem;
+    width:clamp(5rem, 8vw, 15vw);
+    color: darkgreen;
+    cursor: pointer;
+}
+.sendButton:hover {
+    transition: 0.8s;
+    background-color: black;
+    color: greenyellow;
+    border: dashed 1px greenyellow;
+}
+.send, .received {
+    display: flex;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+}
+.send .main {
+    display: flex;
+    background-color: darkgreen;
+    align-items: center;
+    color: white;
+    width: clamp(10rem, 30vw, 50vw);
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-left: auto;
+}
+.received .main {
+    display: flex;
+    background-color: yellowgreen;
+    align-items: center;
+    color: white;
+    width: clamp(10rem, 30vw, 50vw);
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-right: auto;
+}
+.received .avatar, .send .avatar{
+    margin-right: 1rem;
+}
+
+.timestamp {
+    align-self: flex-end;
+    margin-inline: 1rem;
+    font-size: 10px;
+}
+.received .timestamp {
+    align-self: flex-start;
+    font-size: 10px;
+    margin-inline: 1rem;
+}
+@media screen and (max-width: 768px) {
+    .flex {
+        margin-top: 4rem;
+        flex-direction: column;
+    }
+    .list {
+        width: 90vw;
+        height: 20vh;
+        max-height: 20vh;
+        overflow-y: auto;
+    }
+}

@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=DM Sans');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+*:where(.css-dev-only-do-not-override-ph9edi).ant-modal .ant-modal-content, .ant-modal .ant-modal-content .ant-modal-title {
+  color: white;
+  background-color: #262626;
+}
+*:where(.css-dev-only-do-not-override-ph9edi).ant-modal .ant-modal-content {
+  color: white;
+  background-color: #262626;
+}
+*:where(.css-ph9edi).ant-modal .ant-modal-content {
+  color: white;
+  background-color: #262626;
+}
+html {
+  font-family: 'DM Sans';
+}
+body {
+  background-color: #121212;
+  color: white;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+.sidebar.active ~ .content {
+    margin-left: 2rem;
+    left: 5rem;
+    width: calc(100% - 5rem);
+    height: 100vh;
+}
+.content {
+  position: relative;
+  left: 6rem;
+  right: 0;
+  transition: all 1.5 ease;
+  width: calc(100% - 7rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100vh;
+  overflow-y: scroll;
+  overflow-x: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.content::-webkit-scrollbar, .ant-drawer-body::-webkit-scrollbar, .chat::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.content::-webkit-scrollbar-thumb, .ant-drawer-body::-webkit-scrollbar-thumb, .chat::-webkit-scrollbar-thumb {
+  background: darkgreen;
+  border-radius: 10px;
+}
+.content::-webkit-scrollbar-track, .ant-drawer-body::-webkit-scrollbar-track, .chat::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ant-modal-root, .ant-modal-content, .ant-modal-title {
+  background-color: #262626;
+  color: white
+}
+@media screen and (max-width: 768px) {
+  .sidebar.active ~ .content {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+      height: 100vh;
+  }
+  .content {
+    position: sticky;
+    top: 0;
+    right: auto;
+    left: auto;
+    transition: all 1.5 ease;
+    margin: 0;
+    width: 100vw;
+    max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}

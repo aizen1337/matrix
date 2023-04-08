@@ -1,0 +1,141 @@
+.sidebar {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100vh;
+   width: 5rem;
+   background-color: #262626;
+   padding: 0.4rem 0.8rem;
+   transition: all 0.5s ease-in-out;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   z-index: 5;
+}
+.sidebar.active {
+    width: 30vw;
+    align-items: initial;
+    z-index: 10000000;
+}
+.sidebar .top .logo {
+    color: lightgreen;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+}
+.menu {
+    position: absolute;
+    color: lightgreen;
+    top: 0.4rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    z-index: 1000000000;
+}
+.menu svg {
+    font-weight: 1200;
+}
+.sidebar.active ~ .menu {
+    left: 20rem;
+    margin-left: 20rem !important;
+}
+.sidebar.active .top .logo {
+    opacity: 1;
+    margin-top: 3rem;
+}
+.sidebar .user p {
+    opacity: 0;
+}
+.sidebar ul {
+    margin-top: 2rem;
+    position: relative;
+    list-style-type: none;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.sidebar ul li .anchor {
+    color: lightgreen;
+    display: flex;
+    text-decoration: none;
+    border-radius: 1rem;
+    width: 100%;
+    font-size: 1.5rem;
+}
+.sidebar ul li .anchor:hover {
+    transition: 0.5s;
+    background-color: lightgreen;
+    color: black;
+}
+.sidebar ul li .anchor .icon {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+}
+.sidebar .name {
+    opacity: 0;
+}
+.sidebar.active .name {
+    opacity: 1;
+}
+.drawerInput::placeholder { 
+    color: limegreen
+}
+.sidebar ul li:hover .tooltip {
+    transition: 0.5s;
+    opacity: 1;
+}
+.top .logo {
+    font-size: 2rem;
+    margin-right: 5px;
+}
+.user {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    margin-left: 3px;
+}
+.sidebar.active .user p {
+    color: lightgreen;
+    opacity: 1;
+    margin-top: 1rem;
+    text-decoration: none;
+}
+.sidebar.active .anchor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.sidebar.active .anchor .icon {
+    margin-top: 10px;
+}
+.user img{
+    border-radius: 100%;
+    border: 2px solid lightgreen;
+    width: 50px;
+    height: 50px;
+}
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    .sidebar .top {
+        margin-top: 5rem;
+    }
+    .sidebar.active {
+        display: initial;
+        width: 50vw;
+    }
+    .sidebar.active + .menu {
+        margin-left: 10vw;
+    }
+} 

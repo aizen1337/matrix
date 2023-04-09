@@ -192,7 +192,7 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
             bodyStyle={{padding: '2rem', marginLeft: 'auto', marginRight: 'auto'}}
             onClose={() => setOpen(false)} open={open}>
               <Space direction="vertical" >
-              <Button type='primary' className={PostStyles.drawerButton} ><>Share</><TfiRssAlt/></Button>
+              <Link href={`/posts/${id}`}><Button type='primary' className={PostStyles.drawerButton} ><>Head over to post</><TfiRssAlt/></Button></Link>
               {!saved ? 
               <Button type='primary' className={PostStyles.drawerButton} onClick={() => savePost()}><>Save for later</> <TfiSaveAlt/></Button> 
               : 
@@ -204,7 +204,7 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
               </Space>
             </Drawer>
         </div>
-        <ImageSlider images={image_directory} id={id} publishedPost/>
+        <ImageSlider images={image_directory} id={id} onDoubleClick={!likedPost ? () => likePost() : () => dislikePost()} publishedPost/>
         <div className={PostStyles.action}>
             {!likedPost ? <RiHeartAddLine className={PostStyles.icon} onClick={() => likePost()}/>  : <RiHeartAddFill className={PostStyles.icon} onClick={() => dislikePost()}/>}
             <div className={PostStyles.comment}>

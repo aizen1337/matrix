@@ -12,6 +12,7 @@ type Props = {
     id?: number,
     title?: string,
     publishedPost?: boolean, 
+    onDoubleClick?: () => Promise<void>
 }
 
 const ImageSlider = (props: Props) => {
@@ -50,11 +51,8 @@ const ImageSlider = (props: Props) => {
                     </label>
         </div>
         }
-        {props.publishedPost ? 
-        <Link style={{
-        textDecoration: 'none',
-        }} href={`/posts/${props.id}`}>
         <Image 
+        onDoubleClick={props.onDoubleClick}
         src={props.images.urls[count-1]}
         fill
         priority={false}
@@ -62,17 +60,6 @@ const ImageSlider = (props: Props) => {
         "
         placeholder={"empty"}
         alt={props.title || 'post image'}/>
-        </Link> 
-        :
-        <Image 
-        src={props.images.urls[count-1]}
-        fill
-        priority={false}
-        sizes="
-        "
-        placeholder={"empty"}
-        alt={props.title || 'post image'}/>
-      }
     </div>
     <div className={styles.download} onClick={() => saveAs(props.images.urls[count-1])}>Download <TfiDownload /></div>
     </>

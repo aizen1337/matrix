@@ -15,7 +15,6 @@ import { supabase } from '../../lib/supabase'
 import { Comment } from './CommentsModal'
 import { User, useUser } from '@supabase/auth-helpers-react'
 import DeleteModal from './DeleteModal'
-import {useRouter} from 'next/navigation'
 import Badge from './Badge'
 export interface PostInterface {
     id: number,
@@ -24,6 +23,7 @@ export interface PostInterface {
     metadata: Metadata,
     post_author: string,
     image_directory: PostImages,
+    likes: number
   }
   export interface PostImages {
     urls: string[];
@@ -36,12 +36,12 @@ export interface PostInterface {
     email: string
   }
 
-const Post = ({id,snippet,created_at, image_directory, post_author, metadata}: PostInterface) => {
+const Post = ({id,snippet,created_at, image_directory, post_author, metadata, likes}: PostInterface) => {
   const currentUser = useUser()
-  const [liked,setLiked] = useState(false)
-  const [likes, setLikes] = useState(0)
   const [change,setChange] = useState<any>()
   const [open, setOpen] = useState(false)
+  const [likedPost, setLikedPost] = useState(false) 
+  const [likesAmount,setLikesAmount] = useState(likes)
   const [openComments, setOpenComments] = useState(false)
   const [saved,setSaved] = useState(false)
   const [comments,setComments] = useState<Comment[]>([])
@@ -63,6 +63,12 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata}: P
     })
     setSaved(true)
   }
+  async function incrementLikes() {
+    const {error} = await supabase.from('posts').update({likes: (likesAmount+1)}).eq("id", id)
+  }
+  async function decrementLikes() {
+    const {error} = await supabase.from('posts').update({likes: (likesAmount-1)}).eq("id", id)
+  }
   async function unsavePost() {
     if(currentUser) {
       const {error} = await supabase.from('savedposts').delete().eq("post_id", id).eq('user_id', currentUser.id)
@@ -77,6 +83,74 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata}: P
       }
     }
   }
+  async function likePost() {
+    if(!currentUser) {
+      notification.error({
+        message: "You have to be logged in to like posts"
+      })
+      return 
+    }
+    const {error} = await supabase.from('likedposts').insert({
+      post_id: id,
+      user_id: currentUser.id
+    })
+    if(error) console.log(error)
+    else {
+    notification.success({
+      message: "Post liked!"
+    })
+    await incrementLikes()
+    setLikedPost(true)
+    setLikesAmount(likesAmount+1)
+    }
+  }
+  async function dislikePost() {
+    if(currentUser) {
+      const {error} = await supabase.from('likedposts').delete().eq("post_id", id).eq('user_id', currentUser.id)
+      if(error) {
+        console.log(error)
+      }
+      else {
+        notification.info({
+          message: "Post disliked"
+        })
+        await decrementLikes()
+        setLikedPost(false)
+        setLikesAmount(likesAmount-1)
+        
+      }
+    }
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function isPostSaved(id: number, user: User) {
+    if(currentUser) {
+      const {data,error} = await supabase.from('savedposts').select("*").eq('user_id', user.id).eq('post_id', id)
+      if(error) {
+        console.log(error)
+      }
+      else if(data.length === 0) {
+        setSaved(false)
+      }
+      else {
+        setSaved(true)
+      }
+    }
+ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function isPostLiked(id: number, user: User) {
+    if(currentUser) {
+      const {data,error} = await supabase.from('likedposts').select("*").eq('user_id', user.id).eq('post_id', id)
+        if(error) {
+          console.log(error)
+        }
+        else if(data.length === 0) {
+          setLikedPost(false)
+        }
+        else {
+          setLikedPost(true)
+        }
+      }
+   }
     useEffect(() => {
     async function getComments(id: number) {
       const {data,error} = await supabase.rpc('get_comments', {query: id})
@@ -88,24 +162,11 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata}: P
       getComments(id)
     },[change])
   useEffect(() => {
-    async function isPostSaved(id: number, user: User) {
-      if(currentUser) {
-        const {data,error} = await supabase.from('savedposts').select("*").eq('user_id', user.id).eq('post_id', id)
-        if(error) {
-          console.log(error)
-        }
-        else if(data.length === 0) {
-          setSaved(false)
-        }
-        else {
-          setSaved(true)
-        }
-      }
-   }
-   if(currentUser) {
-   isPostSaved(id, currentUser)
-   }
-  }, [])
+    if(currentUser) {
+      isPostSaved(id, currentUser)
+      isPostLiked(id, currentUser)
+    }
+  }, [currentUser, id, isPostLiked, isPostSaved])
   return (
     <section className={PostStyles.item} key={id}>
         <div className={PostStyles.top}>
@@ -145,13 +206,7 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata}: P
         </div>
         <ImageSlider images={image_directory} id={id} publishedPost/>
         <div className={PostStyles.action}>
-            {!liked ? <RiHeartAddLine className={PostStyles.icon} onClick={() => {
-              setLiked(true)
-              setLikes(likes + 1)
-              }}/> : <RiHeartAddFill className={PostStyles.icon} onClick={() => {
-                setLiked(false)
-                setLikes(likes - 1)
-              }}/> }
+            {!likedPost ? <RiHeartAddLine className={PostStyles.icon} onClick={() => likePost()}/>  : <RiHeartAddFill className={PostStyles.icon} onClick={() => dislikePost()}/>}
             <div className={PostStyles.comment}>
               <TfiCommentAlt className={PostStyles.icon} onClick={() => setOpenComments(true)}/>
               <Badge count={comments.length}/>
@@ -163,7 +218,7 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata}: P
         <DeleteModal open={deleteModalOpen} id={id} post_author={post_author} onClose={() => setDeleteModalOpen(false)} content="post"/>
         <div className={PostStyles.bottom}>
           <div className={PostStyles.likesandusername}>
-            <p className={PostStyles.likes}>{likes} <b>likes</b></p>
+            <p className={PostStyles.likes}>{likesAmount} <b>likes</b></p>
             <Link style={{
               textDecoration: 'none',
               color: 'lightgreen'

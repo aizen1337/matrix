@@ -13,7 +13,7 @@ const Page = () => {
   useEffect(() => {
     async function getSavedPosts() {
         if(currentUser) {
-            const {data,error} = await supabase.rpc('get_saved_posts', {query: currentUser.id})
+            const {data,error} = await supabase.rpc('fetch_saved_posts', {query: currentUser.id})
             if(error) {
                 console.log(error)
                 setSavedPosts(false)

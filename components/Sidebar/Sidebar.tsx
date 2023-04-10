@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from './Sidebar.module.css';
 import {useUser } from '@supabase/auth-helpers-react'
-import {TfiImage, TfiHome,TfiSearch,TfiPowerOff,TfiUser, TfiSettings,TfiPlus, TfiSave, TfiMenu, TfiComments} from 'react-icons/tfi'
+import {TfiImage, TfiHome,TfiSearch,TfiPowerOff,TfiUser,TfiPlus, TfiSave, TfiMenu, TfiComments} from 'react-icons/tfi'
 import {FcGoogle} from 'react-icons/fc'
 import Icon from './Icon';
 import { supabase } from '../../lib/supabase';
@@ -91,17 +91,16 @@ const Sidebar = () => {
             <Icon icon={<TfiPlus/>} name={'Add'} destination={'/posts/new'}/>
             <Icon icon={<TfiUser/>} name={'Friends'} onClick = {() => setFriendsDrawerOpen(true)}/>
             <Icon icon={<TfiSave/>} name={'Saved'} destination={'/saved'}/>
-            <Icon icon={<TfiSettings/>} name={'Settings'} destination={'/'}/>
             <Icon icon={<TfiComments/>} name={'Chat'} destination={'/chat'}/>
             </>
+            }
+            {currentUser && 
+            <Icon icon={<HiOutlineBell/>} name={`Invites (${notificationCounter})`} onClick = {() => setNotificationsDrawerOpen(true)}/>
             }
             {currentUser ?
               <Icon icon={<TfiPowerOff/>} onClick={async () => await logoutHandler()} name={'Logout'} />
               :
               <Icon icon={<FcGoogle/>} name={'Login'} onClick={async () => await googleLogin()}/>  
-            }
-            {currentUser && 
-            <Icon icon={<HiOutlineBell/>} name={`Invites (${notificationCounter})`} onClick = {() => setNotificationsDrawerOpen(true)}/>
             }
         </ul>
     </aside>

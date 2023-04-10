@@ -58,7 +58,7 @@ const Page = () => {
   )
   }
   else {
-    return <h1>It seems you haven&apos;t got any friends yet</h1>
+    return <h2>It seems you haven&apos;t got any friends yet</h2>
   }
 }
 

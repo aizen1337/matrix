@@ -23,7 +23,7 @@ type Props = {
 export default function Chat({userId}: Props) {
   const [messages, setMessages] = useState<MessageType[]>([])
   const [newMessage, setNewMessage] = useState('')
-  const dummyRef = useRef<HTMLInputElement>(null)
+  const dummyRef = useRef<HTMLParagraphElement>(null)
   const [friendship,setFriendship] = useState(false)
   const currentUser = useUser() as User
   useEffect(() => {
@@ -37,9 +37,9 @@ export default function Chat({userId}: Props) {
       setMessages(data as MessageType[])
       }
     }
-    if(dummyRef.current !== null) {
-      dummyRef.current.scrollIntoView({behavior: 'smooth', block: 'start'})
-    }
+      if(dummyRef.current !== null) {
+        dummyRef.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+      }
     async function searchForFriendship() {
         if(currentUser) {
           const {data,error} = await supabase.rpc('searchforfriendship', {
@@ -96,7 +96,7 @@ export default function Chat({userId}: Props) {
           <Message type={currentUser?.id == message.sender_id ? 'send' : 'received'} message={message} profilePicture={currentUser?.id === message.sender_id ? currentUser?.user_metadata?.avatar_url : message.sender_metadata?.picture} key={message.id}/>
         ))}
         {(!messages || messages.length == 0) && <h1 className={styles.heading}>Say hello <TfiFaceSmile/></h1>}
-        <p ref={dummyRef} style={{display: 'none'}}></p>
+        <p ref={dummyRef} style={{visibility: 'hidden'}}></p>
       </ul>
       <form className={styles.input} onSubmit={handleNewMessage}>
         <input

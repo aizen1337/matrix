@@ -60,7 +60,8 @@ const DeleteModal = (props: Props) => {
     onOk={() => {props.content == "post" ? deletePost() : deleteComment()}}
     className={styles.modal}
     bodyStyle={{
-      background: '#262626'
+      background: '#262626',
+      borderRadius: '1rem'
     }}
     style={{
       background: '#262626'

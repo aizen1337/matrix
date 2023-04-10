@@ -160,7 +160,7 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
       }
     } 
       getComments(id)
-    },[change])
+    },[change, id])
   useEffect(() => {
     if(currentUser) {
       isPostSaved(id, currentUser)
@@ -192,7 +192,7 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
             bodyStyle={{padding: '2rem', marginLeft: 'auto', marginRight: 'auto'}}
             onClose={() => setOpen(false)} open={open}>
               <Space direction="vertical" >
-              <Link href={`/posts/${id}`}><Button type='primary' className={PostStyles.drawerButton} ><>Head over to post</><TfiRssAlt/></Button></Link>
+              <Link href={`/posts/${id}`}><Button type='primary' className={PostStyles.drawerButton} ><>Head over to post</><TfiLocationArrow/></Button></Link>
               {!saved ? 
               <Button type='primary' className={PostStyles.drawerButton} onClick={() => savePost()}><>Save for later</> <TfiSaveAlt/></Button> 
               : 
@@ -211,7 +211,9 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
               <TfiCommentAlt className={PostStyles.icon} onClick={() => setOpenComments(true)}/>
               <Badge count={comments.length}/>
             </div>
+            <Link href={`/posts/${id}`} style={{'color': 'lightgreen'}}>
             <TfiLocationArrow className={PostStyles.icon}/>
+            </Link>
             {!saved ? <TfiSave className={PostStyles.save} onClick={() => savePost()}/> : <TfiCheckBox className={PostStyles.save} onClick={() => unsavePost()}/>}
         </div>
         <CommentsModal open={openComments} comments={comments} setter={setChange} onClose={() => setOpenComments(false)} id={id}/>

@@ -19,7 +19,7 @@ async function getUser(id: string) {
   }
 }
 async function getUsersPosts(id: string) {
-  const {data,error} = await supabase.rpc('fetch_users_posts', {query: id});
+  const {data,error} = await supabase.rpc('fetch_users_post', {query: id});
   if (error) console.log(error)
   else { 
       return data as PostInterface[]

@@ -56,7 +56,8 @@ const CommentsModal = ({comments, open, onClose, id, setter}: {comments: Comment
     footer={null}
     className={styles.modal}
     bodyStyle={{
-      background: '#262626'
+      background: '#262626',
+      borderRadius: '1rem'
     }}
     style={{
       background: '#262626'

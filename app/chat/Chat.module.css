@@ -8,6 +8,7 @@
     flex-direction: column;
     margin-top: 2rem;
     border-radius: 1rem;
+    padding-inline: 2rem;
 }
  .chat::-webkit-scrollbar, .list::-webkit-scrollbar {
     width: 10px;

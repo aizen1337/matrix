@@ -16,6 +16,7 @@ import { Comment } from './CommentsModal'
 import { User, useUser } from '@supabase/auth-helpers-react'
 import DeleteModal from './DeleteModal'
 import Badge from './Badge'
+import { useRouter } from 'next/navigation'
 export interface PostInterface {
     id: number,
     created_at: string,
@@ -38,6 +39,7 @@ export interface PostInterface {
 
 const Post = ({id,snippet,created_at, image_directory, post_author, metadata, likes}: PostInterface) => {
   const currentUser = useUser()
+  const router = useRouter()
   const [change,setChange] = useState<any>()
   const [open, setOpen] = useState(false)
   const [likedPost, setLikedPost] = useState(false) 
@@ -174,8 +176,8 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
               textDecoration: 'none',
               color: 'lightgreen'
             }}href={`/account/${post_author}`} className={PostStyles.user}>
-            <Image src={metadata.picture} width={40} height={40} alt={metadata.full_name}/>
-            <h2>{metadata.full_name || metadata.email}</h2>
+            <Image src={metadata?.picture} width={40} height={40} alt={metadata?.full_name}/>
+            <h2>{metadata?.full_name || metadata?.email}</h2>
             </Link>
             <TfiMore onClick={() => setOpen(true)} style={{
               cursor: 'pointer'
@@ -211,9 +213,6 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
               <TfiCommentAlt className={PostStyles.icon} onClick={() => setOpenComments(true)}/>
               <Badge count={comments.length}/>
             </div>
-            <Link href={`/posts/${id}`} style={{'color': 'lightgreen'}}>
-            <TfiLocationArrow className={PostStyles.icon}/>
-            </Link>
             {!saved ? <TfiSave className={PostStyles.save} onClick={() => savePost()}/> : <TfiCheckBox className={PostStyles.save} onClick={() => unsavePost()}/>}
         </div>
         <CommentsModal open={openComments} comments={comments} setter={setChange} onClose={() => setOpenComments(false)} id={id}/>
@@ -224,10 +223,14 @@ const Post = ({id,snippet,created_at, image_directory, post_author, metadata, li
             <Link style={{
               textDecoration: 'none',
               color: 'lightgreen'
-            }} href={`/account/${post_author}`} className={PostStyles.username}><h3>{metadata.full_name}</h3></Link>
+            }} href={`/account/${post_author}`} className={PostStyles.username}><h3>{metadata?.full_name}</h3></Link>
           </div>
           <p>{snippet}</p>
-          <small>{formatDistance(new Date(created_at), new Date(), {addSuffix: true})}</small>
+          <small>{
+          created_at ?
+          formatDistance(new Date(created_at), new Date(), {addSuffix: true}) :
+           "loading..."}
+           </small>
         </div>
     </section>
   )

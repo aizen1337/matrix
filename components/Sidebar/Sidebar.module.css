@@ -1,30 +1,23 @@
 .sidebar {
-   position: absolute;
-   top: 0;
-   left: 0;
    height: 100vh;
    width: 5rem;
    background-color: #262626;
-   padding: 0.4rem 0.8rem;
    transition: all 0.5s ease-in-out;
    display: flex;
    flex-direction: column;
    align-items: center;
+   justify-content: space-evenly;
    z-index: 5;
 }
-.sidebar.active {
-    width: 30vw;
-    align-items: initial;
-    z-index: 10000000;
+.bottomBar {
+    display: none;
 }
 .sidebar .top .logo {
     color: lightgreen;
     display: flex;
-    height: 50px;
+    height: 100px;
     width: 100%;
     align-items: center;
-    pointer-events: none;
-    opacity: 0;
 }
 .menu {
     position: absolute;
@@ -39,16 +32,9 @@
 .menu svg {
     font-weight: 1200;
 }
-.sidebar.active ~ .menu {
-    left: 20rem;
-    margin-left: 20rem !important;
-}
-.sidebar.active .top .logo {
-    opacity: 1;
-    margin-top: 3rem;
-}
-.sidebar .user p {
-    opacity: 0;
+.menu:hover {
+    color: darkgreen;
+    transition: 0.8s;
 }
 .sidebar ul {
     margin-top: 2rem;
@@ -63,6 +49,8 @@
 .sidebar ul li .anchor {
     color: lightgreen;
     display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     border-radius: 1rem;
     width: 100%;
@@ -80,18 +68,8 @@
     border-radius: 12px;
     line-height: 50px;
 }
-.sidebar .name {
-    opacity: 0;
-}
-.sidebar.active .name {
-    opacity: 1;
-}
 .drawerInput::placeholder { 
     color: limegreen
-}
-.sidebar ul li:hover .tooltip {
-    transition: 0.5s;
-    opacity: 1;
 }
 .top .logo {
     font-size: 2rem;
@@ -100,22 +78,18 @@
 .user {
     display: flex;
     align-items: center;
-    margin: 1rem 0;
-    margin-left: 3px;
-}
-.sidebar.active .user p {
+    justify-content: space-evenly;
     color: lightgreen;
-    opacity: 1;
-    margin-top: 1rem;
+    width: 100%;
     text-decoration: none;
 }
-.sidebar.active .anchor {
+.sidebar .anchor {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-.sidebar.active .anchor .icon {
+.sidebar .anchor .icon {
     margin-top: 10px;
 }
 .user img{
@@ -125,17 +99,54 @@
     height: 50px;
 }
 @media screen and (max-width: 768px) {
-    .sidebar {
-        display: none;
+    .menu {
+        bottom: 0;
+        margin: 1rem;
+        top: auto;
+        left: auto;
     }
-    .sidebar .top {
-        margin-top: 5rem;
+    .bottomBar {
+        width: 100%;
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        justify-content: space-evenly;
+        align-items: center;
     }
-    .sidebar.active {
-        display: initial;
-        width: 50vw;
+    .adm-tab-bar-wrap {
+        width: 100%;
     }
-    .sidebar.active + .menu {
-        margin-left: 10vw;
+    .bottomBarIcon {
+        display: flex;
+        width: 100%;
+        color: lightgreen;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .activeIcon {
+        color: limegreen;
+    }
+    .inactiveIcon {
+        color: lightgreen;
+    }
+    .title {
+        color: white;
+        font-size: 1rem;
+        margin: 0.25rem;
+    }
+    .notLoggedInIcon {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 5vh;
+        font-size: 1rem;
+        color: lightgreen;
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 1rem;
+    }
+    .icon {
+        font-size: 2rem;
     }
 } 

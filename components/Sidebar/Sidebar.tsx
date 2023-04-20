@@ -8,11 +8,12 @@ import {TfiImage, TfiHome,TfiSearch,TfiPowerOff,TfiUser,TfiPlus, TfiSave, TfiMen
 import {FcGoogle} from 'react-icons/fc'
 import Icon from './Icon';
 import { supabase } from '../../lib/supabase';
-import {notification} from 'antd';
+import {Drawer, notification} from 'antd';
 import FriendsDrawer from './FriendsDrawer';
 import SearchDrawer from './SearchDrawer';
 import {HiOutlineBell} from 'react-icons/hi' 
 import NotificationsDrawer from './NotificationsDrawer';
+import BottomBar from './BottomBar';
 const Sidebar = () => { 
     const router = useRouter()
     const [open,setOpen] = useState(false)
@@ -21,15 +22,6 @@ const Sidebar = () => {
     const [notificationsDrawerOpen, setNotificationsDrawerOpen] = useState(false)
     const [notificationCounter, setNotificationCounter] = useState(0)
     const currentUser = useUser()
-    if(typeof window == "object") {
-        document.addEventListener('click', (e: any) => {
-            const sidebar = document.getElementById('sidebar')
-            const menu = document.getElementById('menu')
-            if(!sidebar?.contains(e.target) && e.target !== menu) {
-                setOpen(false)
-            }
-        })
-    }
     const logoutHandler = async () => {
         notification.open({
             message: 'You have been logged out',
@@ -38,16 +30,15 @@ const Sidebar = () => {
           router.push('/')
     }
     const googleLogin = async () => {
-        const { data, error } = await supabase.auth.signInWithOAuth({
+        const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
           })
         if (error) console.log(error)
     }
-
   return (
     <>
     <TfiMenu className={styles.menu} id="menu" onClick={() => setOpen(!open)}/>
-    <aside id="sidebar" className={open ? `${styles.sidebar} ${styles.active}` : styles.sidebar}>
+    <Drawer open={open} onClose={() => setOpen(false)} className={styles.sidebar} placement='left' style={{background: '#262626'}}>
         <section className={styles.top}>
             <Link href={"/"} style={{
                 textDecoration: 'none',
@@ -60,18 +51,18 @@ const Sidebar = () => {
             </Link>
         </section>
         {currentUser && 
+        <Link href={`/account/${currentUser.id}`} style={{
+        textDecoration: 'none'
+        }}>
         <section className={styles.user}>
-            <Link href={`/account/${currentUser.id}`} style={{
-                textDecoration: 'none'
-            }}>
             <Image src={currentUser.user_metadata?.avatar_url} width={50} height={50} alt="user avatar"/>
             <div>
                 <p>
                     {currentUser.user_metadata?.name || currentUser.email}
                 </p>
             </div>
-            </Link>
         </section>
+        </Link>
         }
         <SearchDrawer searchOpen={searchOpen} onClose={() => setSearchOpen(false)}/>
         <FriendsDrawer friendsDrawerOpen={friendsDrawerOpen} onClose={() => setFriendsDrawerOpen(false)} closeSidebar={() => 
@@ -103,7 +94,7 @@ const Sidebar = () => {
               <Icon icon={<FcGoogle/>} name={'Login'} onClick={async () => await googleLogin()}/>  
             }
         </ul>
-    </aside>
+    </Drawer>
     </>
   )
 }

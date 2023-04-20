@@ -1,8 +1,4 @@
-'use client'
-
-import { Spin } from "antd"
-
-export default function Loading() {
+export default async function Loading() {
   return (
     <div style={{
         width: '100vw',
@@ -14,8 +10,7 @@ export default function Loading() {
         position: 'absolute',
         zIndex: "99999999999"
     }}>
-        <Spin size="large"/>
-        <h1 color="limegreen">Loading</h1>
+        <h1 color="limegreen">Loading...</h1>
     </div>
   )
 }

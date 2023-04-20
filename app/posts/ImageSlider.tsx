@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {TfiArrowRight,TfiArrowLeft, TfiPlus, TfiTrash, TfiDownload} from 'react-icons/tfi';
 import { PostImages } from './Post';
 import styles from './Post.module.css';
-import Link from 'next/link'
 import Image from 'next/image';
 import { usePostContext } from './PostContext';
 import formStyles from './new/Form.module.css'
@@ -13,12 +12,13 @@ type Props = {
     title?: string,
     publishedPost?: boolean, 
     onDoubleClick?: () => Promise<void>
+    onClick?: any
 }
 
 const ImageSlider = (props: Props) => {
   const {removePhoto,images} = usePostContext()
   type Action = 'decrease' | 'increase'
-  const counter = props.images.urls.length
+  const counter = props.images?.urls.length
   var [count,setCount] = useState(1);
   const setImage = (action: Action) => {
     if(action == 'decrease' && (count > 1)) {
@@ -53,7 +53,8 @@ const ImageSlider = (props: Props) => {
         }
         <Image 
         onDoubleClick={props.onDoubleClick}
-        src={props.images.urls[count-1]}
+        onClick={props.onClick}
+        src={props.images?.urls[count-1]}
         fill
         priority={false}
         sizes="
@@ -61,7 +62,7 @@ const ImageSlider = (props: Props) => {
         placeholder={"empty"}
         alt={props.title || 'post image'}/>
     </div>
-    <div className={styles.download} onClick={() => saveAs(props.images.urls[count-1])}>Download <TfiDownload /></div>
+    <div className={styles.download} onClick={() => saveAs(props.images?.urls[count-1])}>Download <TfiDownload /></div>
     </>
   )
 }

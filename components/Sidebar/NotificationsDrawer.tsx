@@ -81,7 +81,7 @@ const NotificationsDrawer = (props: Props) => {
     }
   }
   return (
-    <Drawer open={props.notificationsDrawerOpen} onClose={() => props.onClose(false)} placement='left' zIndex={100000000000}
+    <Drawer open={props.notificationsDrawerOpen} onClose={() => props.onClose(false)} placement='left'
     style={{
         background: '#262626',
     }}>

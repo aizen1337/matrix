@@ -17,8 +17,8 @@ export default function RootLayout({
           <div className="content" id="content">
             {children}
           </div>
+          <BottomBar/>
        </SessionContextProvider>
-       <BottomBar/>
       </body>
     </html>
   )

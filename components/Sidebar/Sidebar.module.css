@@ -101,9 +101,9 @@
 @media screen and (max-width: 768px) {
     .menu {
         bottom: 0;
-        margin: 1rem;
         top: auto;
-        left: auto;
+        left: 0;
+        margin-bottom: 1.5rem;
     }
     .bottomBar {
         width: 100%;
@@ -112,6 +112,8 @@
         bottom: 0;
         justify-content: space-evenly;
         align-items: center;
+        background-color: #262626;
+        height: 8vh;
     }
     .adm-tab-bar-wrap {
         width: 100%;
@@ -122,7 +124,8 @@
         color: lightgreen;
         flex-direction: column;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
+        height: 8vh;
     }
     .activeIcon {
         color: limegreen;
@@ -143,7 +146,7 @@
         font-size: 1rem;
         color: lightgreen;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
         margin-bottom: 1rem;
     }
     .icon {

@@ -57,7 +57,7 @@ body {
 }
 .adm-tab-bar-wrap {
   width: 75%;
-  height: max-content;
+  height: 8vh;
   color: lightgreen;
   margin-bottom: 0.7rem;
 }

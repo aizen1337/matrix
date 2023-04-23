@@ -1,5 +1,5 @@
 import { useUser } from '@supabase/auth-helpers-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {TfiHome,TfiPlus,TfiComments} from 'react-icons/tfi'
 import { FcGoogle } from 'react-icons/fc'
 import styles from './Sidebar.module.css'
@@ -15,10 +15,7 @@ const BottomBar = () => {
           provider: 'google',
         })
       if (error) console.log(error)
-  }
-    const tabs = [
-
-    ]
+    }
     const loggedInTabs = [
       {
         key: '/',
@@ -33,15 +30,15 @@ const BottomBar = () => {
         active ? <TfiComments className={styles.activeIcon}/> : <TfiComments className={styles.inactiveIcon}/>,
       },
       {
-        key: '/posts/add',
+        key: '/posts/new',
         title: <p className={styles.title}>Add</p>,
         icon: (active: boolean) =>
           active ? <TfiPlus className={styles.activeIcon} /> : <TfiPlus className={styles.inactiveIcon}/>,
       },
       {
-        key: currentUser ? `/account/${currentUser.id}` : '/',
-        title: currentUser ? currentUser.user_metadata.full_name : <p className={styles.title}>Login</p>,
-        icon: currentUser ? <Avatar src={currentUser.user_metadata.avatar_url}/> : <FcGoogle className={styles.inactiveIcon}/>,   
+        key: `/account/${currentUser?.id}`,
+        title: <p className={styles.title}>{currentUser?.user_metadata?.full_name}</p>,
+        icon: <Avatar src={currentUser?.user_metadata?.avatar_url}/>
       },
     ]
   return (
@@ -50,7 +47,7 @@ const BottomBar = () => {
     <TabBar className={styles.bottomBar} onChange={value => router.push(value)}>
       {
       loggedInTabs.map(item => (
-        <TabBar.Item icon={item.icon} key={item.key} title={item.title} className={styles.bottomBarIcon} />
+        <TabBar.Item icon={item.icon} key={item.key} title={item.title} className={styles.bottomBarIcon}/>
       ))}
     </TabBar>
     :
